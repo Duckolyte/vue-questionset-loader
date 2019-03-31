@@ -1,9 +1,4 @@
 <template lang="html">
-
-  <!--
-  <qun-file-drag-and-drop></qun-file-drag-and-drop>
-  <qun-upload-progress-stepper></qun-upload-progress-stepper>
-  -->
   <v-layout row wrap>
     <v-flex sx12 md4>
       <h1 class="subheading">Add a Questionary</h1>
@@ -27,6 +22,7 @@
       md8
       class="hidden-sm-and-down"
     >
+      <!-- <router-view name="editor"></router-view> -->
     </v-flex>
   </v-layout>
 

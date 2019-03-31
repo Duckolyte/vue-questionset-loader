@@ -1,25 +1,27 @@
 <template lang="html">
-    <div>
-      <qun-the-navbar></qun-the-navbar>
-      <v-content>
-        <v-layout row wrap>
-          <v-flex>
-            <div id="swipe-left">
+  <v-layout row wrap>
+    <v-flex
+      hidden-md-and-up
+      xs1
+    >
+      <div id="swipe-left">
 
-            </div>
-          </v-flex>
-          <v-flex>
-            <router-link :name="currentView"></router-link>
-          </v-flex>
-          <v-flex>
-            <div id="swipe-right">
+      </div>
+    </v-flex>
+    <v-flex
+      xs12 md10
+    >
+      <router-view></router-view>
+    </v-flex>
+    <v-flex
+      xs1
+      hidden-md-and-up
+    >
+      <div id="swipe-right">
 
-            </div>
-          </v-flex>
-        </v-layout>
-      </v-content>
-      <qun-the-footer></qun-the-footer>
-    </div>
+      </div>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>

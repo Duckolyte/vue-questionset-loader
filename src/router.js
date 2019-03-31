@@ -4,8 +4,11 @@ import QuestionsetBase from './views/QuestionsetBase.vue'
 import QuestionsetOverview from './views/QuestionsetOverview.vue'
 import QuestionsetAdd from './views/QuestionsetAdd.vue'
 
-import QunFileDragAndDrop from './components/upload/FileDragAndDrop'
-import QunUploadProgressStepper from './components/upload/UploadProgressStepper'
+import QunFileDragAndDrop from './components/add/FileDragAndDrop'
+import QunUploadProgressStepper from './components/add/UploadProgressStepper'
+
+import QunQuestionsetList from './components/overview/QuestionsetList'
+import QunQuestionsetDetail from './components/overview/QuestionsetDetail'
 
 
 Vue.use(Router)
@@ -14,15 +17,46 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    /*
     {
-      path: '/test',
-      components: {
-        default: QunFileDragAndDrop,
-        progress: QunUploadProgressStepper
-      }
+      path: '/questionset',
+      component: QuestionsetBase,
+      children: [
+        {
+          path: 'add',
+          component: QuestionsetAdd,
+          children: [
+            {
+              path:'',
+              components: {
+                default: QunFileDragAndDrop,
+                progress: QunUploadProgressStepper
+              }
+            }
+          ]
+        },
+        {
+          path: 'overview',
+          component: QuestionsetOverview,
+          children: [
+            {
+              path: '',
+              components: {
+                default: QunQuestionsetList,
+                setdetail: QunQuestionsetDetail
+              }
+            }
+          ]
+        },
+        /*
+        // TODO:
+        {
+          path: 'editor',
+          component: QuestionsetEditor
+        }
+        */
+      ]
     }
-    */
+    /*
     {
       path: '/questionset',
       component: QuestionsetAdd,
@@ -37,62 +71,17 @@ export default new Router({
         {
           path: 'overview',
           components: {
-            default: QunFileDragAndDrop,
-            progress: QunUploadProgressStepper
+            default: QunQuestionsetList,
+            setdetail: QunQuestionsetDetail
           }
         },
         /*
-        // TODO: 
+        // TODO:
         {
           path: 'editor',
           component: QuestionsetEditor
         }
-        */
-      ]
-    },
-    /*
-    {
-      path: '/questionset',
-      name: 'createset',
-      component: QuestionsetAdd,
-      children: [
-        {
-          path: '/do-create',
-          components: {
-            default: QunFileDragAndDrop,
-            progress: QunUploadProgressStepper
-          }
-        },
-        {
-          path: 'overview',
-          components: {
-            default: QunFileDragAndDrop,
-            progress: QunUploadProgressStepper
-          }
-        }
-      ]
-    },
-    */
-    /*
-    {
-      path: '/questionset',
-      name: 'base',
-      component: QuestionsetBase,
-      children: [
-        {
-          path: 'create',
-          name: 'create',
-          component: QuestionsetAdd,
-          children: [
-            {
-              path: '/test',
-              components: {
-                default: QunFileDragAndDrop,
-                progessStepper: QunUploadProgressStepper,
-              }
-            }
-          ]
-        }
+
       ]
     },
     */
