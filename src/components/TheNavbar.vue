@@ -12,10 +12,6 @@
         <span>{{ appTitle }}</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn depressed color="primary">
-        <span>Account</span>
-        <v-icon right>account</v-icon>
-      </v-btn>
     </v-toolbar>
 
     <v-navigation-drawer

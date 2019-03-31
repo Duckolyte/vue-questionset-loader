@@ -3,21 +3,22 @@
     :value="showNav"
     absolute
     color="transparent"
+    app
   >
 
-    <v-btn flat to="/">
+    <v-btn flat to="/questionset/overview">
       <span>Overview</span>
-      <v-icon>fa4-book</v-icon>
+      <v-icon>fa-book</v-icon>
     </v-btn>
 
-    <v-btn flat to="/file-upload">
+    <v-btn flat to="/questionset/add">
       <span>Import</span>
-      <v-icon>fa4-file-upload</v-icon>
+      <v-icon>fa-file-upload</v-icon>
     </v-btn>
 
-    <v-btn flat to="/settings">
+    <v-btn flat to="/questionset/settings">
       <span>Settings</span>
-      <v-icon>fa4-cog</v-icon>
+      <v-icon>fa-cog</v-icon>
     </v-btn>
 
   </v-bottom-nav>
@@ -29,6 +30,7 @@ export default {
   data(){
     return {
       showNav: true,
+
     }
   }
 

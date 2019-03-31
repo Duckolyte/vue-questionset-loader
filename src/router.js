@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import QuestionsetBase from './views/QuestionsetBase.vue'
 import QuestionsetOverview from './views/QuestionsetOverview.vue'
-import QuestionsetCreate from './views/QuestionsetCreate.vue'
+import QuestionsetAdd from './views/QuestionsetAdd.vue'
 
 import QunFileDragAndDrop from './components/upload/FileDragAndDrop'
 import QunUploadProgressStepper from './components/upload/UploadProgressStepper'
@@ -25,10 +25,10 @@ export default new Router({
     */
     {
       path: '/questionset',
-      component: QuestionsetCreate,
+      component: QuestionsetAdd,
       children: [
         {
-          path: 'upload',
+          path: 'add',
           components: {
             default: QunFileDragAndDrop,
             progress: QunUploadProgressStepper
@@ -40,14 +40,21 @@ export default new Router({
             default: QunFileDragAndDrop,
             progress: QunUploadProgressStepper
           }
+        },
+        /*
+        // TODO: 
+        {
+          path: 'editor',
+          component: QuestionsetEditor
         }
+        */
       ]
     },
     /*
     {
       path: '/questionset',
       name: 'createset',
-      component: QuestionsetCreate,
+      component: QuestionsetAdd,
       children: [
         {
           path: '/do-create',
@@ -75,7 +82,7 @@ export default new Router({
         {
           path: 'create',
           name: 'create',
-          component: QuestionsetCreate,
+          component: QuestionsetAdd,
           children: [
             {
               path: '/test',

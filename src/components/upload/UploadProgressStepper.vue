@@ -1,13 +1,14 @@
 <template lang="html">
-  <v-stepper value="1" vertical>
-    <v-stepper-step
-      v-for="(state, index) in uploadStates"
-      step="index"
-    >
-      {{ state.label }}
-    </v-stepper-step>
-
-  </v-stepper>
+  <v-container grid-list-xs,sm,md,lg,xl>
+    <v-stepper value="1" vertical>
+      <v-stepper-step
+        v-for="(state, index) in uploadStates"
+        :step="index+1"
+      >
+        {{ state.label }}
+      </v-stepper-step>
+    </v-stepper>
+  </v-container>
 </template>
 
 <script>
