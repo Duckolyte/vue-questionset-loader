@@ -4,7 +4,7 @@
     <v-content>
       <v-container fluid>
         <router-view></router-view>
-      </v-container>->
+      </v-container>
     </v-content>
     <qun-the-footer></qun-the-footer>
   </v-app>

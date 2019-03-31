@@ -1,12 +1,21 @@
 <template lang="html">
-  <v-layout row wrap>
+  <v-layout
+    row
+    wrap
+    align-content-space-around
+  >
     <v-flex
-      hidden-md-and-up
+      hidden-sm-and-down
       xs1
     >
-      <div id="swipe-left">
-
-      </div>
+      <v-layout
+        row
+        justify-start
+      >
+        <v-icon class="swipe-chevron">
+          fa-chevron-left
+        </v-icon>
+      </v-layout>
     </v-flex>
     <v-flex
       xs12 md10
@@ -15,18 +24,18 @@
     </v-flex>
     <v-flex
       xs1
-      hidden-md-and-up
+      hidden-sm-and-down
     >
-      <div id="swipe-right">
-
-      </div>
+      <v-layout row justify-end>
+        <v-icon>
+          fa-chevron-right
+        </v-icon>
+      </v-layout>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import QunTheNavbar from '../components/TheNavbar'
-import QunTheFooter from '../components/TheFooter'
 
 export default {
   name: 'QunQuestionsetBase',
@@ -39,4 +48,13 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.swipe-chevron{
+
+}
+
+.swipe-chevron:hover{
+
+}
+
 </style>
