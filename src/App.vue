@@ -1,29 +1,44 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+
+    <qun-the-navbar></qun-the-navbar>
+    <v-content>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+      <!--
+      <v-layout row wrap>
+        <v-flex>
+          <div id="swipe-left">
+            <v-icon large>iconName</v-icon>
+          </div>
+        </v-flex>
+        <v-flex>
+          <router-view name="testroute"></router-view>
+        </v-flex>
+        <v-flex>
+          <div id="swipe-right">
+            <v-icon>iconName</v-icon>
+          </div>
+        </v-flex>
+      </v-layout>-->
+      <!-- <router-view name="progress"></router-view> -->
+    </v-content>
+    <qun-the-footer></qun-the-footer>
+
+    <!--<router-link name="base"></router-link>-->
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+
+import TheNavbar from './components/TheNavbar'
+import TheFooter from './components/TheFooter'
+
+export default {
+  components: {
+    'qun-the-navbar': TheNavbar,
+    'qun-the-footer': TheFooter,
+  },
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+</script>
