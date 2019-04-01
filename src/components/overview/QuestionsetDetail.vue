@@ -3,27 +3,27 @@
     <v-layout row>
       <v-flex xs12>
         <v-card>
-          <v-toolbar color="primary" dark>
-
-            <v-toolbar-title class="font-weight-light">
-              {{ questionset.title }}
-            </v-toolbar-title>
-
-            <v-spacer></v-spacer>
-
-            <v-btn icon>
-              <v-icon small>fa-search</v-icon>
-            </v-btn>
-          </v-toolbar>
+          <v-card>
+            <v-layout
+              column
+              fill-height
+            >
+              <qun-questionset-description
+                :description="questionset"
+                :isTitle="true"
+              >
+              </qun-questionset-description>
+            </v-layout>
+          </v-card>
 
           <v-list two-line>
             <template
-              v-for="(description, index) in questionsetDescriptions"
+              v-for="(question, index) in questionset.questions"
             >
-              <qun-questionset-description
+              <qun-question-description
                 :key="index"
-                :description="description"
-              ></qun-questionset-description>
+                :description="question"
+              ></qun-question-description>
               <v-divider>
               </v-divider>
             </template>
@@ -35,36 +35,73 @@
 </template>
 
 <script>
+import QuestionsetDescription from './QuestionsetDescription'
+import QuestionDescription from './QuestionDescription'
+
 export default {
   name: 'name',
+  components: {
+    'qun-questionset-description': QuestionsetDescription,
+    'qun-question-description': QuestionDescription
+  },
   data(){
     return{
       // TODO
       // use $store.state.overviewContext.selectedSet instead of the dummy
       // set selectedSet in QuestionsetDescription
       // questionset = $store.state.overviewContext.selectedSet;
-      questionset: function() {
-        return items = [
-          { header: 'Today' },
+      questionset: {
+        title: 'testTile0',
+        author: 'testAuthor0',
+        type: 'diagnoses',
+        questions: [
           {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-            title: 'Brunch this weekend?',
-            subtitle: "<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+            code: 0,
+            label: 'This is a question code 0 label?',
+            type: 'range',
+            answers: [
+              {
+                code: 0,
+                next: 1
+              },
+              {
+                code: 1,
+                next: 2
+              },
+            ],
           },
-          { divider: true, inset: true },
           {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-            title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
-            subtitle: "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend."
+            code: 1,
+            label: 'This is a question code 1 label?',
+            type: 'binary',
+            answers: [
+              {
+                code: 0,
+                next: 1
+              },
+              {
+                code: 1,
+                next: 2
+              },
+            ],
           },
-          { divider: true, inset: true },
           {
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-            title: 'Oui oui',
-            subtitle: "<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?"
-          }
+            code: 2,
+            label: 'This is a question code 2 label?',
+            type: 'range',
+            answers: [
+              {
+                code: 0,
+                next: 1
+              },
+              {
+                code: 1,
+                next: 2
+              },
+            ],
+          },
         ]
-      }
+      },
     }
   },
 }

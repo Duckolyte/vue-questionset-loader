@@ -20,7 +20,19 @@
       </v-list-tile-sub-title>
     </v-list-tile-content>
 
+    <template
+      v-if="isTitle"
+    >
+      <v-btn flat small fab>
+        <v-icon small>fa-edit</v-icon>
+      </v-btn>
+      <v-btn flat small fab>
+        <v-icon small>fa-trash</v-icon>
+      </v-btn>
+    </template>
+
     <v-btn
+      v-else
       flat
       small
       fab
@@ -35,6 +47,7 @@ export default {
   name: 'QuestionsetDescription',
   props: {
     description: Object,
+    isTitle: Boolean
   },
   computed:{
     numberOfQuestions: function(){

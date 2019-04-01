@@ -21,8 +21,8 @@
               v-for="(description, index) in questionsetDescriptions"
             >
               <qun-questionset-description
-                :key="index"
                 :description="description"
+                :isTitle="false"
               ></qun-questionset-description>
               <v-divider>
               </v-divider>
