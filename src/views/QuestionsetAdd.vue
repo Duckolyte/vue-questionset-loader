@@ -1,7 +1,9 @@
 <template lang="html">
   <v-layout row wrap>
-    <v-flex sx12 md4>
+    <v-flex xs12>
       <h1 class="subheading">Add a Questionary</h1>
+    </v-flex>
+    <v-flex sx12 md4>
       <v-container
         grid-xs,sm,md,lg,xl
         class="hidden-md-and-up"

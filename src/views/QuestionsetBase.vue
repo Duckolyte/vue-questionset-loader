@@ -11,6 +11,7 @@
       <v-layout
         row
         justify-start
+        fill-height
       >
         <v-icon class="swipe-chevron">
           fa-chevron-left
@@ -26,7 +27,11 @@
       xs1
       hidden-sm-and-down
     >
-      <v-layout row justify-end>
+      <v-layout
+        row
+        justify-end
+        fill-height
+      >
         <v-icon>
           fa-chevron-right
         </v-icon>
