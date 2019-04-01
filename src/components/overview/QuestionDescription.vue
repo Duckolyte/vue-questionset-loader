@@ -19,22 +19,38 @@
       </v-list-tile-sub-title>
     </v-list-tile-content>
 
-    <v-btn
-      flat
-      small
-      fab
+    <qun-menu
+      :menuItems="menuItems"
     >
-      <v-icon small>fa-ellipsis-h</v-icon>
-    </v-btn>
+    </qun-menu>
   </v-list-tile>
 </template>
 
 <script>
+import QunMenu from '../util/QunMenu'
+
 export default {
   name: 'QuestionDescription',
+  components: {
+    'qun-menu': QunMenu,
+  },
   props: {
     description: Object,
   },
+  data(){
+    return{
+      menuItems:[
+        {
+          title: 'Edit',
+          icon: 'edit'
+        },
+        {
+          title: 'Delete',
+          icon: 'trash'
+        }
+      ]
+    }
+  }
 }
 </script>
 

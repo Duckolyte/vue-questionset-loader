@@ -31,20 +31,22 @@
       </v-btn>
     </template>
 
-    <v-btn
+    <qun-menu
       v-else
-      flat
-      small
-      fab
+      :menuItems="menuItems"
     >
-      <v-icon small>fa-ellipsis-h</v-icon>
-    </v-btn>
+    </qun-menu>
   </v-list-tile>
 </template>
 
 <script>
+import QunMenu from '../util/QunMenu'
+
 export default {
   name: 'QuestionsetDescription',
+  components: {
+    'qun-menu': QunMenu,
+  },
   props: {
     description: Object,
     isTitle: Boolean
@@ -56,8 +58,16 @@ export default {
   },
   data(){
     return{
-      iconMap: {
-      }
+      menuItems:[
+        {
+          title: 'Edit',
+          icon: 'edit'
+        },
+        {
+          title: 'Delete',
+          icon: 'trash'
+        }
+      ]
     }
   }
 }
