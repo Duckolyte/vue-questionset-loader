@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import QuestionsetBase from './views/QuestionsetBase.vue'
 import QuestionsetOverview from './views/QuestionsetOverview.vue'
 import QuestionsetAdd from './views/QuestionsetAdd.vue'
+import QuestionsetEdit from './views/QuestionsetEdit.vue'
 
 import QunFileDragAndDrop from './components/add/FileDragAndDrop'
 import QunUploadProgressStepper from './components/add/UploadProgressStepper'
@@ -29,7 +30,8 @@ export default new Router({
               path:'',
               components: {
                 default: QunFileDragAndDrop,
-                progress: QunUploadProgressStepper
+                progress: QunUploadProgressStepper,
+                edit: QuestionsetEdit
               }
             }
           ]

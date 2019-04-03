@@ -1,7 +1,7 @@
 <template lang="html">
   <v-layout row wrap>
     <v-flex xs12>
-      <h1 class="subheading">Add a Questionary</h1>
+      <h1 class="subheading">Add a Questionset</h1>
     </v-flex>
     <v-flex sx12 md4>
       <v-container
@@ -11,7 +11,7 @@
         <v-btn
           block
           color="grey--text"
-          :to="{name: 'editor'}"
+          :to="{name: 'edit'}"
         >
           <v-icon left small>fa-plus</v-icon>
           <span>Create new in editor</span>
@@ -24,7 +24,7 @@
       md8
       class="hidden-sm-and-down"
     >
-      <!-- <router-view name="editor"></router-view> -->
+      <router-view name="edit"></router-view>
     </v-flex>
   </v-layout>
 

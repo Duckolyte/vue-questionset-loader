@@ -1,6 +1,7 @@
 import '@fortawesome/fontawesome-free/css/all.css'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import VeeValidate from 'vee-validate'
 import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
@@ -14,6 +15,8 @@ Vue.use(
     iconfont: 'fa'
   }
 )
+
+Vue.use(VeeValidate)
 
 new Vue({
   router,
