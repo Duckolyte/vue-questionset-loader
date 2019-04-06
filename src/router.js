@@ -14,7 +14,7 @@ import QunQuestionsetDetail from './components/overview/QuestionsetDetail'
 
 import QunQuestionDetailEdit from './components/edit/QuestionDetailEdit'
 import QunQuestionsetDetailEdit from './components/edit/QuestionsetDetailEdit'
-
+import QunAnswerDetailEdit from './components/edit/AnswerDetailEdit'
 
 Vue.use(Router)
 
@@ -66,7 +66,12 @@ export default new Router({
               name: 'edit-question',
               path: 'question',
               component: QunQuestionDetailEdit
-            }
+            },
+            {
+              name: 'edit-answer',
+              path: 'answer',
+              component: QunAnswerDetailEdit
+            },
           ]
         },
         {

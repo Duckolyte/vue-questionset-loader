@@ -15,7 +15,6 @@
 <script>
 
 import BaseQuestion from './BaseQuestion.vue';
-//import BinaryAnswer from '../answer/BinaryAnswer'
 
 export default
 {
@@ -23,7 +22,6 @@ export default
 
   components: {
     'base-question': BaseQuestion,
-    // 'binary-answer': BinaryAnswer,
   },
 
   data() {

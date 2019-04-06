@@ -19,20 +19,16 @@
       required
     ></v-select>
 
-    <v-container
-      grid-list-xs,sm,md,lg,xl
-    >
-      <v-layout row wrap>
-        <v-flex
-          xs12
-          v-if="selectedType"
-        >
-          <component
-            :is="selectedType"
-          ></component>
-        </v-flex>
-      </v-layout>
-    </v-container>
+    <v-layout row wrap>
+      <v-flex
+        xs12
+        v-if="selectedType"
+      >
+        <component
+          :is="selectedType"
+        ></component>
+      </v-flex>
+    </v-layout>
 
   </v-form>
 </template>
