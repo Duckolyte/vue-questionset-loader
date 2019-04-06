@@ -1,12 +1,15 @@
 <template lang="html">
-  <component
+  <div>
+    <h1 class="font-weight-light">Answer</h1>
+    <component
     :is="selectedEdit"
-  ></component>
+    ></component>
+  </div>
 </template>
 
 <script>
 import BinaryAnswerEdit from './answer/BinaryAnswerEdit'
-//... more specifc answer edit implementations 
+//... more specifc answer edit implementations
 
 export default {
   name: 'AnswerDetailEdit',
