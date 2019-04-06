@@ -2,8 +2,6 @@
 
   <v-form
     ref="form"
-    v-model="valid"
-    lazy-validation
   >
     <v-text-field
       v-model="questionLabel"
@@ -25,16 +23,13 @@
       grid-list-xs,sm,md,lg,xl
     >
       <v-layout row wrap>
-        <v-flex xs12>
-          <v-card
-            v-if="selectedItem"
-          >
-            <!--
-            <qun-base-type-question
-              :name="selectedType"
-            ></qun-base-type-question>
-           -->
-          </v-card>
+        <v-flex
+          xs12
+          v-if="selectedType"
+        >
+          <component
+            :is="selectedType"
+          ></component>
         </v-flex>
       </v-layout>
     </v-container>
@@ -43,10 +38,37 @@
 </template>
 
 <script>
-// TODO import BaseTypeQuestion from './BaseTypeQuestion'
+//import InputQuestion from '../components/question/InputQuestion.vue';
+//import RadioQuestion from '../components/question/RadioQuestion.vue';
+//import SliderQuestion from '../components/question/SliderQuestion.vue';
+import BinaryQuestion from './question/BinaryQuestion.vue';
 
 export default {
+
   name: 'QuestionDetailEdit',
+
+  components:
+  {
+    /*
+    'input-question': InputQuestion,
+    'radio-question': RadioQuestion,
+    'slider-question': SliderQuestion,
+    */
+    'binary-question': BinaryQuestion,
+  },
+
+  data() {
+    return {
+      selectedType: null,
+      question: {
+        label: "",
+        type: "",
+      },
+      items: [
+        'binary-question'
+      ]
+    }
+  }
 }
 </script>
 

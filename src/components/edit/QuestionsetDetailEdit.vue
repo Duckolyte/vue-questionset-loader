@@ -1,8 +1,6 @@
 <template lang="html">
   <v-form
     ref="form"
-    v-model="valid"
-    lazy-validation
   >
     <v-text-field
       v-model="questionsetDetail.title"
@@ -36,12 +34,12 @@
 export default {
 
   $_veeValidate: {
-      validator: 'new'
-    },
+    validator: 'new'
+  },
 
   name: 'QuestionsetDetailEdit',
   props: {
-      questionset: Object,
+    questionset: Object,
   },
   data(){
     return{

@@ -4,12 +4,16 @@ import QuestionsetBase from './views/QuestionsetBase.vue'
 import QuestionsetOverview from './views/QuestionsetOverview.vue'
 import QuestionsetAdd from './views/QuestionsetAdd.vue'
 import QuestionsetEdit from './views/QuestionsetEdit.vue'
+import BaseEdit from './views/BaseEdit.vue'
 
 import QunFileDragAndDrop from './components/add/FileDragAndDrop'
 import QunUploadProgressStepper from './components/add/UploadProgressStepper'
 
 import QunQuestionsetList from './components/overview/QuestionsetList'
 import QunQuestionsetDetail from './components/overview/QuestionsetDetail'
+
+import QunQuestionDetailEdit from './components/edit/QuestionDetailEdit'
+import QunQuestionsetDetailEdit from './components/edit/QuestionsetDetailEdit'
 
 
 Vue.use(Router)
@@ -33,7 +37,7 @@ export default new Router({
                 progress: QunUploadProgressStepper,
                 edit: QuestionsetEdit
               }
-            }
+            },
           ]
         },
         {
@@ -49,43 +53,30 @@ export default new Router({
             }
           ]
         },
-        /*
-        // TODO:
         {
+          path: 'edit',
+          component: BaseEdit,
+          children:[
+            {
+              name: 'edit-questionset',
+              path: 'questionset',
+              component: QunQuestionsetDetailEdit
+            },
+            {
+              name: 'edit-question',
+              path: 'question',
+              component: QunQuestionDetailEdit
+            }
+          ]
+        },
+        {
+          name: 'editor',
           path: 'editor',
-          component: QuestionsetEditor
+          components: {
+            default: QuestionsetEdit
+          }
         }
-        */
       ]
     }
-    /*
-    {
-      path: '/questionset',
-      component: QuestionsetAdd,
-      children: [
-        {
-          path: 'add',
-          components: {
-            default: QunFileDragAndDrop,
-            progress: QunUploadProgressStepper
-          }
-        },
-        {
-          path: 'overview',
-          components: {
-            default: QunQuestionsetList,
-            setdetail: QunQuestionsetDetail
-          }
-        },
-        /*
-        // TODO:
-        {
-          path: 'editor',
-          component: QuestionsetEditor
-        }
-
-      ]
-    },
-    */
   ]
 })

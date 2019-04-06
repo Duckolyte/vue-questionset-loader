@@ -18,10 +18,10 @@
 
           <v-list two-line>
             <template
-              v-for="(description, index) in questionsetDescriptions"
+              v-for="(questionset, index) in questionsetDescriptions"
             >
               <qun-questionset-description
-                :description="description"
+                :questionset="questionset"
                 :isTitle="false"
               ></qun-questionset-description>
               <v-divider>

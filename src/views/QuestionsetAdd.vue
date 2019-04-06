@@ -11,7 +11,7 @@
         <v-btn
           block
           color="grey--text"
-          :to="{name: 'edit'}"
+          :to="{name: 'editor'}"
         >
           <v-icon left small>fa-plus</v-icon>
           <span>Create new in editor</span>

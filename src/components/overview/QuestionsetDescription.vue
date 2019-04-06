@@ -1,22 +1,22 @@
 <template lang="html">
   <v-list-tile
-    :key="description.title"
+    :key="questionset.title"
     avatar
-    @click=""
+    @click="openQuestionset(questionset)"
   >
     <v-list-tile-avatar>
-      <v-icon>fa-{{ description.type }}</v-icon>
+      <v-icon>fa-{{ questionset.type }}</v-icon>
     </v-list-tile-avatar>
 
     <v-list-tile-content>
       <v-list-tile-title>
-        <span>{{ description.title }}</span>
+        <span>{{ questionset.title }}</span>
       </v-list-tile-title>
       <v-list-tile-sub-title>
         <span>Question count: </span>
         <span>{{ numberOfQuestions }}</span>
         <span> - </span>
-        <span>{{ description.author }}</span>
+        <span>{{ questionset.author }}</span>
       </v-list-tile-sub-title>
     </v-list-tile-content>
 
@@ -48,12 +48,12 @@ export default {
     'qun-menu': QunMenu,
   },
   props: {
-    description: Object,
+    questionset: Object,
     isTitle: Boolean
   },
   computed:{
     numberOfQuestions: function(){
-      return this.description.questions.length;
+      return this.questionset.questions.length;
     }
   },
   data(){
