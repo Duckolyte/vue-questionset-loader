@@ -40,9 +40,11 @@ import QuestionsetDescription from './QuestionsetDescription'
 export default {
 
   name: 'QuestionsetList',
+
   components: {
     'qun-questionset-description': QuestionsetDescription,
   },
+
   data(){
     return{
       questionsetDescriptions: [
@@ -82,8 +84,27 @@ export default {
         },
       ]
     }
-  }
+  },
 
+  created() {
+    const webServiceConfig = this.$store.state.application.questionsetWebService;
+    fetch(
+      `
+      ${webServiceConfig.url}
+      ${webServiceConfig.api}
+      ${webServiceConfig.resources.questionaries}
+      `,
+      this.$store.application.questionsetWebService.methods.get
+    )
+    .then(response => {
+      //TODO try catch
+      console.log(response);
+      self.questionsetDescriptions = JSON.parse(response);
+    })
+    .catch(error => {
+      // TODO handle error
+    })
+  },
 }
 </script>
 

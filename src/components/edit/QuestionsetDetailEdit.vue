@@ -6,14 +6,14 @@
       v-model="questionsetDetail.title"
       v-validate="'required|max:10'"
       :counter="10"
-      :rules="titleRules"
       label="Title"
       required
     ></v-text-field>
 
     <v-text-field
       v-model="questionsetDetail.author"
-      v-validate="'required|author'"
+      v-validate="'required|max:10'"
+      :counter="10"
       label="Author"
       required
     ></v-text-field>
@@ -27,10 +27,19 @@
       required
     ></v-select>
 
+    <v-btn
+      color="primary"
+      @click="postForm"
+    >
+      Submit
+    </v-btn>
+
   </v-form>
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+
 export default {
 
   $_veeValidate: {
@@ -38,9 +47,13 @@ export default {
   },
 
   name: 'QuestionsetDetailEdit',
-  props: {
-    questionset: Object,
+
+  computed: {
+    ...mapGetters({
+      types: 'allTypeNames',
+    })
   },
+
   data(){
     return{
       questionsetDetail: {
@@ -64,9 +77,53 @@ export default {
       }
     }
   },
+
+  methods: {
+    postForm() {
+
+      const webServiceConfig = this.$store.state.application.questionsetWebService;
+      fetch(
+        `${webServiceConfig.url}${webServiceConfig.api}${webServiceConfig.resources.questionaries}`,
+        webServiceConfig.methods.post(this.questionsetDetail)
+      )
+      .then(response => {
+        //TODO try catch
+        console.log(response);
+      })
+      .catch(error => {
+        // TODO handle error
+        console.log(error);
+      })
+    }
+  },
+
   created(){
-    if (questionset) {
-      questionsetDetail = questionset;
+    const self = this;
+
+    // TODO if this is used to edit use the this.$router questionsetid param  to find
+    if(false)
+    {
+      const webServiceConfig =
+        this.$store.state.application.questionsetWebService;
+
+      fetch(
+        "\
+        ${webServiceConfig.url}\
+        ${webServiceConfig.api}\
+        ${webServiceConfig.resources.questionaries}\
+        /${TODO_router_param_set_id}\
+        ",
+        webServiceConfig.methods.get
+      )
+      .then(response => {
+        //TODO try catch
+        console.log(response);
+        self.questionsetDetail = JSON.parse(response);
+      })
+      .catch(error => {
+        // TODO handle error
+        console.log(error);
+      })
     }
   }
 }
