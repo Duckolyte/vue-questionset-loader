@@ -9,7 +9,7 @@
               fill-height
             >
               <qun-questionset-description
-                :description="questionset"
+                :questionset="questionset"
                 :isTitle="true"
               >
               </qun-questionset-description>

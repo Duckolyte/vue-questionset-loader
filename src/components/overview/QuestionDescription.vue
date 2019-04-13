@@ -21,6 +21,7 @@
 
     <qun-menu
       :menuItems="menuItems"
+      :menuContext="{id: description.id, type: 'question'}"
     >
     </qun-menu>
   </v-list-tile>
@@ -42,11 +43,33 @@ export default {
       menuItems:[
         {
           title: 'Edit',
-          icon: 'edit'
+          icon: 'edit',
+          command: function(menuContext) {
+            const routeTo = {
+              name: `edit-${menuContext.type}`,
+              params: { id: menuContext.id }
+            }
+            this.$router.push(routeTo)
+          },
         },
         {
           title: 'Delete',
-          icon: 'trash'
+          icon: 'trash',
+          command: function(menuContext) {
+            const webService =
+              this.$store.state.application.questionsetWebService;
+            fetch(
+              `${webService.url}${webService.api}`+
+              `${webService.resources.questionaries}/${menuContext.id}`,
+              webServiceConfig.methods.delete
+            )
+            .then(response => {
+              console.log(response);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+          },
         }
       ]
     }

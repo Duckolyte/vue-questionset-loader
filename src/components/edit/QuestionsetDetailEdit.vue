@@ -56,11 +56,15 @@ export default {
 
   data(){
     return{
+
       questionsetDetail: {
         title: '',
         author: '',
         type: ''
       },
+
+      formContext: null,
+
       dictionary: {
         attributes: {
           author: 'Author'
@@ -80,15 +84,25 @@ export default {
 
   methods: {
     postForm() {
-
+      const self = this;
       const webServiceConfig = this.$store.state.application.questionsetWebService;
+
       fetch(
         `${webServiceConfig.url}${webServiceConfig.api}${webServiceConfig.resources.questionaries}`,
-        webServiceConfig.methods.post(this.questionsetDetail)
+        webServiceConfig.methods.post(JSON.stringify(this.questionsetDetail))
       )
       .then(response => {
-        //TODO try catch
-        console.log(response);
+        response.text().then((jsonResponse) => {
+          //TODO try catch
+          console.log(jsonResponse);
+          try{
+            self.$store.state.application.context.inUSeQuestionset = JSON.parse(jsonResponse);
+            self.$router.push()
+          }
+          catch(error){
+            console.log(error);
+          }
+        });
       })
       .catch(error => {
         // TODO handle error
@@ -100,19 +114,21 @@ export default {
   created(){
     const self = this;
 
-    // TODO if this is used to edit use the this.$router questionsetid param  to find
-    if(false)
+    const routerParams = this.$router.params;
+    console.log("routerParams: ");
+    console.log(routerParams);
+
+    if(routerParams)
     {
-      const webServiceConfig =
+
+      this.formContext = routerParams;
+
+      const webService =
         this.$store.state.application.questionsetWebService;
 
       fetch(
-        "\
-        ${webServiceConfig.url}\
-        ${webServiceConfig.api}\
-        ${webServiceConfig.resources.questionaries}\
-        /${TODO_router_param_set_id}\
-        ",
+        `${webService.url}${webService.api}`+
+        `${webService.resources.questionaries}/${routerParams.id}`,
         webServiceConfig.methods.get
       )
       .then(response => {

@@ -9,7 +9,13 @@ export default new Vuex.Store({
     application: {
 
       userAuthentication: {
-        userId: ''
+        userName: '',
+        authCookie: '',
+      },
+
+      context: {
+        allQuestionsets: [],
+        inUseQuestionset: {},
       },
 
       questionsetWebService: {
@@ -22,16 +28,17 @@ export default new Vuex.Store({
           get: {
             method: 'GET',
             headers: {
-              accept: 'application/json',
-              'content-type': 'application/json',
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
             },
           },
           post: (bodyToPost) => {
             return {
+              mode: 'cors',
               method: 'POST',
               headers: {
-                accept: 'application/json',
-                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
               },
               body: bodyToPost,
             }
@@ -40,13 +47,41 @@ export default new Vuex.Store({
           delete: {},
         },
       },
-      // TODO make this multi language supported
+
+      menuItemCommands:{
+        delete: function(menuContext) {
+          const webService =
+            this.$store.state.application.questionsetWebService;
+          fetch(
+            `${webService.url}${webService.api}`+
+            `${webService.resources.questionaries}/${menuContext.id}`,
+            webServiceConfig.methods.delete
+          )
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        },
+        edit: function() {
+          const routeTo = {
+            name: menuContext.type,
+            params: { id: menuContext.id}
+          }
+          this.$router.push(routeTo)
+        },
+      },
       descriptionMenuItems: [
         {
+          label: 'Delete',
+          icon : 'trash'
+        },
+        {
           label: 'Edit',
-          icon : 'Delete'
+          icon : 'edit'
         }
-      ]
+      ],
 
     },
 
@@ -84,9 +119,11 @@ export default new Vuex.Store({
       )
     },
   },
+
   mutations: {
 
   },
+
   actions: {
 
   }

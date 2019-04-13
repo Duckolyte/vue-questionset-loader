@@ -1,6 +1,5 @@
 <template lang="html">
   <v-list-tile
-    :key="questionset.title"
     avatar
     @click="openQuestionset(questionset)"
   >
@@ -34,6 +33,7 @@
     <qun-menu
       v-else
       :menuItems="menuItems"
+      :menuContext="{id: questionset.id, type: 'questionset'}"
     >
     </qun-menu>
   </v-list-tile>
@@ -43,33 +43,68 @@
 import QunMenu from '../util/QunMenu'
 
 export default {
+
   name: 'QuestionsetDescription',
+
   components: {
     'qun-menu': QunMenu,
   },
+
   props: {
     questionset: Object,
-    isTitle: Boolean
+    isTitle: Boolean,
   },
-  computed:{
+
+  computed: {
     numberOfQuestions: function(){
       return this.questionset.questions.length;
     }
   },
-  data(){
-    return{
+
+  methods: {
+    openQuestionset(set){
+      return;
+    }
+  },
+
+  data() {
+    return {
       menuItems:[
         {
           title: 'Edit',
-          icon: 'edit'
+          icon: 'edit',
+          command: function(self, menuContext) {
+            const routeTo = {
+              name: `edit-${menuContext.type}`,
+              params: { id: menuContext.id }
+            }
+            self.$router.push(routeTo)
+          },
         },
         {
           title: 'Delete',
-          icon: 'trash'
+          icon: 'trash',
+          command: function(self, menuContext) {
+            const webService =
+              self.$store.state.application.questionsetWebService;
+            fetch(
+              `${webService.url}${webService.api}`+
+              `${webService.resources.questionaries}/${menuContext.id}`,
+              webServiceConfig.methods.delete
+            )
+            .then(response => {
+              console.log(response);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+          },
         }
       ]
     }
-  }
+  },
+
+
 }
 </script>
 

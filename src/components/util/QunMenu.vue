@@ -10,10 +10,10 @@
         <v-list-tile
           v-for="(item, index) in menuItems"
           :key="index"
-          @click=""
+          @click="runCommand(item)"
         >
           <v-list-tile-avatar>
-            <v-icon fab right small>fa-{{item.icon}}</v-icon>
+            <v-icon fab right small>fa-{{ item.icon }}</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-title small>{{ item.title }}</v-list-tile-title>
         </v-list-tile>
@@ -24,10 +24,35 @@
 
 <script>
 export default {
+
   name: 'QunMenu',
+
   props: {
     menuItems: Array,
+    menuContext: Object,
   },
+
+  methods: {
+    runCommand(menuItem) {
+      menuItem.command(this, this.menuContext);
+    }
+  }
+
+  /*
+  TODO example context
+  {
+    menuContext: {
+      id: 12345,
+      type: 'questionset',
+      routeTo: function() {
+        return
+      }
+      route
+    }
+  }
+
+  */
+
 }
 </script>
 

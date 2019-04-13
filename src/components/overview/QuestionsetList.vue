@@ -21,6 +21,7 @@
               v-for="(questionset, index) in questionsetDescriptions"
             >
               <qun-questionset-description
+                :key="index"
                 :questionset="questionset"
                 :isTitle="false"
               ></qun-questionset-description>
@@ -56,7 +57,7 @@ export default {
             {questionKey: 'questionsValue'},
             {questionKey: 'questionsValue'},
             {questionKey: 'questionsValue'},
-          ]
+          ],
         },
         {
           title: 'testTile1',
@@ -64,7 +65,7 @@ export default {
           type: 'thermometer-half',
           questions: [
             {questionKey: 'questionsValue'},
-          ]
+          ],
         },
         {
           title: 'testTile2',
@@ -73,37 +74,38 @@ export default {
           questions: [
             {questionKey: 'questionsValue'},
             {questionKey: 'questionsValue'},
-          ]
+          ],
         },
         {
           title: 'testTile3',
           author: 'testAuthor3',
           type: 'capsules',
-          questions: [
-          ]
-        },
+          questions: [],
+        }
       ]
     }
   },
 
   created() {
-    const webServiceConfig = this.$store.state.application.questionsetWebService;
-    fetch(
-      `
-      ${webServiceConfig.url}
-      ${webServiceConfig.api}
-      ${webServiceConfig.resources.questionaries}
-      `,
-      this.$store.application.questionsetWebService.methods.get
-    )
-    .then(response => {
-      //TODO try catch
-      console.log(response);
-      self.questionsetDescriptions = JSON.parse(response);
-    })
-    .catch(error => {
-      // TODO handle error
-    })
+
+      //const webServiceConfig = this.$store.state.application.questionsetWebService;
+      //fetch(
+      //  `
+      //  ${webServiceConfig.url}
+      //  ${webServiceConfig.api}
+      //  ${webServiceConfig.resources.questionaries}
+      //  `,
+      //  this.$store.state.application.questionsetWebService.methods.get
+      //)
+      //.then(response => {
+      //  //TODO try catch
+      //  console.log(response);
+      //  self.questionsetDescriptions = JSON.parse(response);
+      //})
+      //.catch(error => {
+      //  // TODO handle error
+      //})
+
   },
 }
 </script>
