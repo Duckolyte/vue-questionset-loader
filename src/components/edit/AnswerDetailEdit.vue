@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <h1 class="font-weight-light">Answer</h1>
+    <h1 class="font-weight-light">Edit Answer</h1>
     <component
     :is="selectedEdit"
     ></component>

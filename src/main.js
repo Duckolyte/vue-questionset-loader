@@ -6,13 +6,20 @@ import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import colors from 'vuetify/es5/util/colors'
 
 Vue.config.productionTip = false
 
 Vue.use(
   Vuetify,
   {
-    iconfont: 'fa'
+    iconfont: 'fa',
+    theme: {
+      primary: colors.cyan.lighten3, // #E53935
+      secondary: colors.cyan.darken3, // #FFCDD2
+      accent: colors.indigo.base, // #3F51B5
+      error: '#b71c1c'
+    }
   }
 )
 

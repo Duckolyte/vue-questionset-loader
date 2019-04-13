@@ -3,19 +3,39 @@
     <v-layout row>
       <v-flex xs12>
         <v-card>
-          <v-card>
-            <v-layout
-              column
-              fill-height
-            >
-              <qun-questionset-description
-                :questionset="questionset"
-                :isTitle="true"
+          <template
+            v-if="questionset"
+          >
+            <v-card class="pb-3">
+              <v-layout
+                column
+                fill-height
               >
-              </qun-questionset-description>
-            </v-layout>
-          </v-card>
+                <qun-questionset-description
+                  :questionset="questionset"
+                  :isTitle="true"
+                >
+                </qun-questionset-description>
+              </v-layout>
+              <v-btn
+                fab
+                dark
+                small
+                color="secondary"
+                absolute
+                bottom
+                left
+                :to="{name: 'edit-question', params: {id: 0}}"
+              >
+                <v-icon dark>fa-plus</v-icon>
+              </v-btn>
+            </v-card>
+          </template>
+        </v-card>
 
+        <template
+          v-if="questionset"
+        >
           <v-list two-line>
             <template
               v-for="(question, index) in questionset.questions"
@@ -28,7 +48,7 @@
               </v-divider>
             </template>
           </v-list>
-        </v-card>
+        </template>
       </v-flex>
     </v-layout>
   </v-container>
@@ -39,71 +59,35 @@ import QuestionsetDescription from './QuestionsetDescription'
 import QuestionDescription from './QuestionDescription'
 
 export default {
+
   name: 'name',
+
   components: {
     'qun-questionset-description': QuestionsetDescription,
     'qun-question-description': QuestionDescription
   },
-  data(){
-    return{
-      // TODO
-      // use $store.state.overviewContext.selectedSet instead of the dummy
-      // set selectedSet in QuestionsetDescription
-      // questionset = $store.state.overviewContext.selectedSet;
-      questionset: {
-        title: 'testTile0',
-        author: 'testAuthor0',
-        type: 'diagnoses',
-        questions: [
-          {
-            code: 0,
-            label: 'This is a question code 0 label?',
-            type: 'range',
-            answers: [
-              {
-                code: 0,
-                next: 1
-              },
-              {
-                code: 1,
-                next: 2
-              },
-            ],
-          },
-          {
-            code: 1,
-            label: 'This is a question code 1 label?',
-            type: 'binary',
-            answers: [
-              {
-                code: 0,
-                next: 1
-              },
-              {
-                code: 1,
-                next: 2
-              },
-            ],
-          },
-          {
-            code: 2,
-            label: 'This is a question code 2 label?',
-            type: 'range',
-            answers: [
-              {
-                code: 0,
-                next: 1
-              },
-              {
-                code: 1,
-                next: 2
-              },
-            ],
-          },
-        ]
-      },
+
+  computed: {
+    questionset() {
+      const appContext = this.$store.state.application.context
+      if(appContext.inUseQuestionset){
+        return appContext.inUseQuestionset;
+      }
+      else
+      {
+        if (appContext.allQuestionsets) {
+          return appContext.allQuestionsets[0]
+        }
+      }
+      return null;
     }
   },
+
+  data(){
+    return{
+    }
+  },
+
 }
 </script>
 

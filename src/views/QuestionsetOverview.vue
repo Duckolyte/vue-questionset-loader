@@ -2,13 +2,13 @@
 
   <v-layout row wrap>
     <v-flex xs12>
-      <h1 class="subheading">Questionary Overview</h1>
+      <h1 class="heading font-weight-light">Questionset Overview</h1>
     </v-flex>
-    <v-flex sx12 md4>
+    <v-flex sx12 sm4>
       <router-view></router-view>
     </v-flex>
     <v-flex
-      md8
+      sm8
       class="hidden-sm-and-down"
     >
       <router-view name="setdetail"></router-view>

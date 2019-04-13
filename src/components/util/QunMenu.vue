@@ -37,22 +37,6 @@ export default {
       menuItem.command(this, this.menuContext);
     }
   }
-
-  /*
-  TODO example context
-  {
-    menuContext: {
-      id: 12345,
-      type: 'questionset',
-      routeTo: function() {
-        return
-      }
-      route
-    }
-  }
-
-  */
-
 }
 </script>
 

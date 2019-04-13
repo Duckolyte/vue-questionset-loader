@@ -3,6 +3,7 @@
   <v-form
     ref="form"
   >
+    <h1 class="heading font-weight-light">Edit Question</h1>
     <v-text-field
       v-model="questionLabel"
       :counter="10"

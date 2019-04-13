@@ -1,10 +1,10 @@
 <template lang="html">
   <v-list-tile
     avatar
-    @click="openQuestionset(questionset)"
+    @click="useQuestionset(questionset)"
   >
     <v-list-tile-avatar>
-      <v-icon>fa-{{ questionset.type }}</v-icon>
+      <v-icon>fa-{{ questionsetTypeIcon }}</v-icon>
     </v-list-tile-avatar>
 
     <v-list-tile-content>
@@ -33,13 +33,14 @@
     <qun-menu
       v-else
       :menuItems="menuItems"
-      :menuContext="{id: questionset.id, type: 'questionset'}"
+      :menuContext="{id: questionset._id, type: 'questionset'}"
     >
     </qun-menu>
   </v-list-tile>
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import QunMenu from '../util/QunMenu'
 
 export default {
@@ -56,14 +57,27 @@ export default {
   },
 
   computed: {
-    numberOfQuestions: function(){
+
+    ...mapGetters({
+      types: 'allQuestionsetTypes',
+    }),
+
+    numberOfQuestions() {
       return this.questionset.questions.length;
-    }
+    },
+
+    questionsetTypeIcon() {
+      return this.types
+        .find(type => type.name === this.questionset.type)
+        .icon
+    },
   },
 
   methods: {
-    openQuestionset(set){
-      return;
+    useQuestionset(set){
+      console.log('TODO make with action or mutation');
+      //const appContext = this.$store.state.application.context
+      //appContext.inUseQuestionset = this.questionset;
     }
   },
 
@@ -93,7 +107,9 @@ export default {
               webServiceConfig.methods.delete
             )
             .then(response => {
-              console.log(response);
+              response.text().then(text => {
+                console.log(text);
+              })
             })
             .catch(error => {
               console.log(error);

@@ -33,7 +33,7 @@
 
         <qun-questionset-description
           v-if="questionset"
-          :description="questionset"
+          :questionset="questionset"
         ></qun-questionset-description>
         <v-card
           v-else

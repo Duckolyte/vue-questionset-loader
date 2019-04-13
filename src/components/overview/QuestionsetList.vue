@@ -2,34 +2,51 @@
   <v-container grid-list-xs,sm,md,lg,xl>
     <v-layout row>
       <v-flex xs12>
-        <v-card>
-          <v-toolbar color="primary" dark>
-
+        <v-card extended>
+          <v-toolbar color="primary pb-3">
             <v-toolbar-title class="font-weight-light">
               My Questionsets
             </v-toolbar-title>
 
             <v-spacer></v-spacer>
-
-            <v-btn icon>
-              <v-icon small>fa-search</v-icon>
-            </v-btn>
+            <!--
+            <v-text-field
+              small
+              label="Search"
+              append-icon="search"
+            ></v-text-field>
+            -->
+            <v-icon small>fa-search</v-icon>
           </v-toolbar>
 
-          <v-list two-line>
-            <template
-              v-for="(questionset, index) in questionsetDescriptions"
-            >
-              <qun-questionset-description
-                :key="index"
-                :questionset="questionset"
-                :isTitle="false"
-              ></qun-questionset-description>
-              <v-divider>
-              </v-divider>
-            </template>
-          </v-list>
+          <v-btn
+            fab
+            small
+            icon
+            color="secondary"
+            bottom
+            left
+            absolute
+            :to="{name: 'edit-questionset', params: {id: 0}}"
+          >
+            <v-icon>fa-plus</v-icon>
+          </v-btn>
         </v-card>
+
+        <v-list two-line>
+          <template
+            v-for="(questionset, index) in questionsetDescriptions"
+          >
+            <qun-questionset-description
+              :key="index"
+              :questionset="questionset"
+              :isTitle="false"
+            ></qun-questionset-description>
+            <v-divider>
+            </v-divider>
+          </template>
+        </v-list>
+
       </v-flex>
     </v-layout>
   </v-container>
@@ -47,64 +64,42 @@ export default {
   },
 
   data(){
-    return{
-      questionsetDescriptions: [
-        {
-          title: 'testTile0',
-          author: 'testAuthor0',
-          type: 'diagnoses',
-          questions: [
-            {questionKey: 'questionsValue'},
-            {questionKey: 'questionsValue'},
-            {questionKey: 'questionsValue'},
-          ],
-        },
-        {
-          title: 'testTile1',
-          author: 'testAuthor1',
-          type: 'thermometer-half',
-          questions: [
-            {questionKey: 'questionsValue'},
-          ],
-        },
-        {
-          title: 'testTile2',
-          author: 'testAuthor2VeeeeeryLoooooong',
-          type: 'heartbeat',
-          questions: [
-            {questionKey: 'questionsValue'},
-            {questionKey: 'questionsValue'},
-          ],
-        },
-        {
-          title: 'testTile3',
-          author: 'testAuthor3',
-          type: 'capsules',
-          questions: [],
-        }
-      ]
+    return {
+      questionsetDescriptions: [],
     }
   },
 
   created() {
 
-      //const webServiceConfig = this.$store.state.application.questionsetWebService;
-      //fetch(
-      //  `
-      //  ${webServiceConfig.url}
-      //  ${webServiceConfig.api}
-      //  ${webServiceConfig.resources.questionaries}
-      //  `,
-      //  this.$store.state.application.questionsetWebService.methods.get
-      //)
-      //.then(response => {
-      //  //TODO try catch
-      //  console.log(response);
-      //  self.questionsetDescriptions = JSON.parse(response);
-      //})
-      //.catch(error => {
-      //  // TODO handle error
-      //})
+    const self = this;
+
+    const webServiceConfig = this.$store.state.application.questionsetWebService;
+    fetch(
+      `${webServiceConfig.url}${webServiceConfig.api}` +
+      `${webServiceConfig.resources.questionaries}`,
+      this.$store.state.application.questionsetWebService.methods.get
+    )
+    .then(response => {
+      response.text().then((jsonResponse) => {
+        try{
+          const allQuestionsets = JSON.parse(jsonResponse);
+          const appContext = self.$store.state.application.context;
+
+          appContext.allQuestionsets = allQuestionsets;
+          if (allQuestionsets.length) {
+              appContext.inUseQuestionset = allQuestionsets[0];
+          }
+
+          self.questionsetDescriptions = allQuestionsets;
+        }
+        catch(error){
+          console.log(error);
+        }
+      });
+    })
+    .catch(error => {
+      // TODO handle error
+    })
 
   },
 }

@@ -45,6 +45,7 @@ export default new Router({
           component: QuestionsetOverview,
           children: [
             {
+              name: 'overview',
               path: '',
               components: {
                 default: QunQuestionsetList,
@@ -59,7 +60,7 @@ export default new Router({
           children:[
             {
               name: 'edit-questionset',
-              path: 'questionset',
+              path: 'questionset/:id',
               component: QunQuestionsetDetailEdit
             },
             {

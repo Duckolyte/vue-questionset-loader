@@ -14,8 +14,8 @@ export default new Vuex.Store({
       },
 
       context: {
-        allQuestionsets: [],
-        inUseQuestionset: {},
+        allQuestionsets: null,
+        inUseQuestionset: null,
       },
 
       questionsetWebService: {
@@ -26,6 +26,7 @@ export default new Vuex.Store({
         },
         methods: {
           get: {
+            mode: 'cors',
             method: 'GET',
             headers: {
               'Accept': 'application/json',
@@ -43,8 +44,25 @@ export default new Vuex.Store({
               body: bodyToPost,
             }
           },
-          update: {},
-          delete: {},
+          update: (bodyToPost) => {
+            return {
+              mode: 'cors',
+              method: 'PUT',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: bodyToPost,
+            }
+          },
+          delete: {
+            mode: 'cors',
+            method: 'DELETE',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+          },
         },
       },
 
@@ -108,6 +126,9 @@ export default new Vuex.Store({
   },
   getters: {
 
+    allQuestionsetTypes: state => {
+      return state.domain.questionsetTypes.allTypes
+    },
     allTypeNames: state => {
       return state.domain.questionsetTypes.allTypes.map(
         type => type.name
