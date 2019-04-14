@@ -63,9 +63,14 @@ export default {
     'qun-questionset-description': QuestionsetDescription,
   },
 
+  computed: {
+    questionsetDescriptions() {
+      return this.$store.state.application.context.allQuestionsets;
+    }
+  },
+
   data(){
     return {
-      questionsetDescriptions: [],
     }
   },
 
@@ -89,8 +94,6 @@ export default {
           if (allQuestionsets.length) {
               appContext.inUseQuestionset = allQuestionsets[0];
           }
-
-          self.questionsetDescriptions = allQuestionsets;
         }
         catch(error){
           console.log(error);

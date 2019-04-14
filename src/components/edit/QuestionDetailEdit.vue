@@ -31,6 +31,13 @@
       </v-flex>
     </v-layout>
 
+    <v-btn
+      color="primary"
+      @click="postForm"
+    >
+      {{ buttonLabel }}
+    </v-btn>
+
   </v-form>
 </template>
 
@@ -54,9 +61,20 @@ export default {
     'binary-question': BinaryQuestion,
   },
 
+  computed: {
+    buttonLabel() {
+      return this.formMode == 'post' ? 'Create' : 'Update';
+    }
+  },
+
   data() {
     return {
       selectedType: null,
+
+      formMode: 'post',
+
+      formContext: null,
+
       question: {
         label: "",
         type: "",
@@ -65,7 +83,76 @@ export default {
         'binary-question'
       ]
     }
-  }
+  },
+
+  methods: {
+    postForm() {
+      const self = this;
+      const webServiceConfig = this.$store.state.application.questionsetWebService;
+
+      fetch(
+        `${webServiceConfig.url}${webServiceConfig.api}` +
+        `${webServiceConfig.resources.questionaries}`,
+        webServiceConfig.methods[this.formMode](
+          JSON.stringify(this.questionsetDetail)
+        )
+      )
+      .then(response => {
+        response.text().then((jsonResponse) => {
+          try{
+            self.$store.state.application.context.inUseQuestionset = JSON.parse(jsonResponse);
+          }
+          catch(error){
+            console.log(error);
+          }
+        });
+      })
+      .then(() => {
+        self.$router.push({name: 'overview'})
+      })
+      .catch(error => {
+        // TODO handle error
+        console.log(error);
+      })
+    }
+  },
+
+  created(){
+    const self = this;
+
+    const routerParams = this.$route.params;
+
+    if(routerParams.id != 0)
+    {
+      this.formMode = 'update';
+      this.formContext = routerParams;
+
+      const webService =
+        this.$store.state.application.questionsetWebService;
+
+      fetch(
+        `${webService.url}${webService.api}`+
+        `${webService.resources.questionaries}/${routerParams.id}`,
+        webService.methods.get
+      )
+      .then(response => {
+        response.text().then(
+          jsonResponse => {
+            try{
+              self.questionsetDetail = JSON.parse(jsonResponse);
+            }
+            catch(error){
+              console.log(error);
+            }
+          }
+        )
+      })
+      .catch(error => {
+        // TODO handle error
+        console.log(error);
+      })
+    }
+  },
 }
 </script>
 

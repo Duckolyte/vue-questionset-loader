@@ -75,9 +75,7 @@ export default {
 
   methods: {
     useQuestionset(set){
-      console.log('TODO make with action or mutation');
-      //const appContext = this.$store.state.application.context
-      //appContext.inUseQuestionset = this.questionset;
+      this.$store.commit('updateQuestionsetInUse', set)
     }
   },
 
@@ -104,11 +102,15 @@ export default {
             fetch(
               `${webService.url}${webService.api}`+
               `${webService.resources.questionaries}/${menuContext.id}`,
-              webServiceConfig.methods.delete
+              webService.methods.delete
             )
             .then(response => {
               response.text().then(text => {
                 console.log(text);
+                self.$store.commit(
+                  'removeSetFromAllQuestionsets',
+                  menuContext.id
+                )
               })
             })
             .catch(error => {

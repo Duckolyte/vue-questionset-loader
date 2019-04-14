@@ -124,6 +124,7 @@ export default new Vuex.Store({
 
     },
   },
+
   getters: {
 
     allQuestionsetTypes: state => {
@@ -142,6 +143,19 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    updateQuestionsetInUse: (state, set) => {
+      state.application.context.inUseQuestionset = set;
+    },
+
+    removeSetFromAllQuestionsets: (state, setId) => {
+      let allSets = state.application.context.allQuestionsets;
+      if (state.application.context.inUseQuestionset._id == setId) {
+        state.application.context.inUseQuestionset = ''
+      }
+      state.application.context.allQuestionsets = allSets.filter(
+        set => set._id !== setId
+      );
+    },
 
   },
 
