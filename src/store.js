@@ -22,7 +22,8 @@ export default new Vuex.Store({
         url: 'http://localhost:3000', //should be loaded from a resource file
         api: '/questionary-loader',
         resources: {
-          questionaries: '/questionaries'
+          questionset: '/questionaries',
+          question: '/questions'
         },
         methods: {
           get: {
@@ -64,6 +65,18 @@ export default new Vuex.Store({
             },
           },
         },
+
+        fetchResource: {
+
+          updateQuestionset() {
+
+          },
+
+          createQuestionset() {
+
+          },
+
+        },
       },
 
       menuItemCommands:{
@@ -73,7 +86,7 @@ export default new Vuex.Store({
           fetch(
             `${webService.url}${webService.api}`+
             `${webService.resources.questionaries}/${menuContext.id}`,
-            webServiceConfig.methods.delete
+            webService.methods.delete
           )
           .then(response => {
             console.log(response);
@@ -130,19 +143,23 @@ export default new Vuex.Store({
     allQuestionsetTypes: state => {
       return state.domain.questionsetTypes.allTypes
     },
+
     allTypeNames: state => {
       return state.domain.questionsetTypes.allTypes.map(
         type => type.name
       )
     },
+
     allTypeIcons: state => {
       return state.allTypes.map(
         type => type.icon
       )
     },
+
   },
 
   mutations: {
+
     updateQuestionsetInUse: (state, set) => {
       state.application.context.inUseQuestionset = set;
     },
@@ -157,9 +174,65 @@ export default new Vuex.Store({
       );
     },
 
+    postQuestionInQuestionset: (state, payload) => {
+        state.application.context.allQuestionsets.find(
+          set => set._id == payload.id
+        )
+        .questions
+        .push(payload.question)
+    },
+
+    updateQuestionInQuestionset: (state, payload) => {
+        let setToUpdate = state.application.context.allQuestionsets.find(
+          set => set._id == payload.id
+        )
+
+        let updatedQuestions = setToUpdate.questions
+          .filter(question => question._id !== payload.question._id)
+
+        updatedQuestions.push(payload.question)
+        
+        setToUpdate.questions = updatedQuestions
+    },
+
   },
 
   actions: {
+
+    updateQuestionsetWithQuestion: (context, payload) => {
+
+      context.commit(
+        payload.method,
+        payload
+      )
+
+      context.dispatch('updateQuestionset', payload)
+    },
+
+    updateQuestionset: (context, payload) => {
+      let setToUpdate = context.state.application.context.allQuestionsets.find(
+        set => set._id == payload.id
+      )
+      const webService = context.state.application.questionsetWebService;
+
+      fetch(
+        `${webService.url}${webService.api}` +
+        `${webService.resources.questionset}/${setToUpdate._id}`,
+        webService.methods.update(
+          JSON.stringify(setToUpdate)
+        )
+      )
+      .then(response => {
+        response.text().then((text) => {
+          // TODO snackbar info successfully updated questionset
+          console.log(text);
+        });
+      })
+      .catch(error => {
+        // TODO handle error with a snackbar
+        console.log(error);
+      })
+    },
 
   }
 })

@@ -96,7 +96,7 @@ export default {
 
       fetch(
         `${webServiceConfig.url}${webServiceConfig.api}` +
-        `${webServiceConfig.resources.questionaries}`,
+        `${webServiceConfig.resources.questionset}`,
         webServiceConfig.methods[this.formMode](
           JSON.stringify(this.questionsetDetail)
         )
@@ -136,7 +136,7 @@ export default {
 
       fetch(
         `${webService.url}${webService.api}`+
-        `${webService.resources.questionaries}/${routerParams.id}`,
+        `${webService.resources.questionset}/${routerParams.id}`,
         webService.methods.get
       )
       .then(response => {

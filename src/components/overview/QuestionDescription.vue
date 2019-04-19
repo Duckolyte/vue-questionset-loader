@@ -21,7 +21,7 @@
 
     <qun-menu
       :menuItems="menuItems"
-      :menuContext="{id: description.id, type: 'question'}"
+      :menuContext="{id: description._id, type: 'question'}"
     >
     </qun-menu>
   </v-list-tile>
@@ -44,23 +44,23 @@ export default {
         {
           title: 'Edit',
           icon: 'edit',
-          command: function(menuContext) {
+          command: function(self, menuContext) {
             const routeTo = {
               name: `edit-${menuContext.type}`,
               params: { id: menuContext.id }
             }
-            this.$router.push(routeTo)
+            self.$router.push(routeTo)
           },
         },
         {
           title: 'Delete',
           icon: 'trash',
-          command: function(menuContext) {
+          command: function(self, menuContext) {
             const webService =
-              this.$store.state.application.questionsetWebService;
+              self.$store.state.application.questionsetWebService;
             fetch(
               `${webService.url}${webService.api}`+
-              `${webService.resources.questionaries}/${menuContext.id}`,
+              `${webService.resources[menuContext.type]}/${menuContext.id}`,
               webServiceConfig.methods.delete
             )
             .then(response => {

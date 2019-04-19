@@ -81,8 +81,8 @@ export default {
     const webServiceConfig = this.$store.state.application.questionsetWebService;
     fetch(
       `${webServiceConfig.url}${webServiceConfig.api}` +
-      `${webServiceConfig.resources.questionaries}`,
-      this.$store.state.application.questionsetWebService.methods.get
+      `${webServiceConfig.resources.questionset}`,
+      webServiceConfig.methods.get
     )
     .then(response => {
       response.text().then((jsonResponse) => {

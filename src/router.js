@@ -65,7 +65,7 @@ export default new Router({
             },
             {
               name: 'edit-question',
-              path: 'question',
+              path: 'question/:id',
               component: QunQuestionDetailEdit
             },
             {

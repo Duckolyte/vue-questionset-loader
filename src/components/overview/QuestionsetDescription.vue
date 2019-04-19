@@ -101,7 +101,7 @@ export default {
               self.$store.state.application.questionsetWebService;
             fetch(
               `${webService.url}${webService.api}`+
-              `${webService.resources.questionaries}/${menuContext.id}`,
+              `${webService.resources[menuContext.type]}/${menuContext.id}`,
               webService.methods.delete
             )
             .then(response => {
