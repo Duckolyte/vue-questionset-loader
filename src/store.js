@@ -95,7 +95,7 @@ export default new Vuex.Store({
             console.log(error);
           });
         },
-        edit: function() {
+        edit: function(menuContext) {
           const routeTo = {
             name: menuContext.type,
             params: { id: menuContext.id}
@@ -151,7 +151,7 @@ export default new Vuex.Store({
     },
 
     allTypeIcons: state => {
-      return state.allTypes.map(
+      return state.domain.questionsetTypes.allTypes.map(
         type => type.icon
       )
     },
@@ -191,13 +191,31 @@ export default new Vuex.Store({
           .filter(question => question._id !== payload.question._id)
 
         updatedQuestions.push(payload.question)
-        
+
         setToUpdate.questions = updatedQuestions
+    },
+
+    deleteQuestionInQuestionset: (state, payload) => {
+      let setInUse = state.application.context.inUseQuestionset;
+      if (setInUse) {
+        setInUse.questions = setInUse.questions.filter(
+          question => question._id !== payload.id
+        )
+      }
     },
 
   },
 
   actions: {
+
+    deleteQuestionInQuestionset: (context, payload) => {
+      let setInUse = context.state.application.context.inUseQuestionset;
+
+      context.commit('deleteQuestionInQuestionset', payload)
+
+      context.dispatch('updateQuestionset', {id: setInUse._id})
+
+    },
 
     updateQuestionsetWithQuestion: (context, payload) => {
 

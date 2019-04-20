@@ -1,5 +1,6 @@
 <template lang="html">
   <v-list-tile
+    class="title"
     avatar
     @click="useQuestionset(questionset)"
   >
@@ -9,7 +10,9 @@
 
     <v-list-tile-content>
       <v-list-tile-title>
-        <span>{{ questionset.title }}</span>
+        <span>
+          {{ questionset.title }}
+        </span>
       </v-list-tile-title>
       <v-list-tile-sub-title>
         <span>Question count: </span>

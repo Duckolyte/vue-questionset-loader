@@ -96,7 +96,7 @@ export default {
 
       fetch(
         `${webService.url}${webService.api}`+
-        `${webService.resources.question}/${urlId}`, // TODO for update /${this.formContext.id} -> MAKE two methods
+        `${webService.resources.question}/${urlId}`,
         webService.methods[this.formMode](
           JSON.stringify(this.question)
         )
@@ -104,7 +104,6 @@ export default {
       .then(response => {
         response.text().then(
           jsonResponse => {
-            console.log(jsonResponse);
             try{
               self.question = JSON.parse(jsonResponse);
             }
@@ -113,7 +112,8 @@ export default {
             }
           }
         ).then(() => {
-          const setId = self.$store.state.application.context.inUseQuestionset._id;
+          const setId =
+            self.$store.state.application.context.inUseQuestionset._id;
           self.$store.dispatch(
             'updateQuestionsetWithQuestion',
             {

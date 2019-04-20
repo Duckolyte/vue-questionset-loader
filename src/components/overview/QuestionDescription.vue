@@ -61,10 +61,14 @@ export default {
             fetch(
               `${webService.url}${webService.api}`+
               `${webService.resources[menuContext.type]}/${menuContext.id}`,
-              webServiceConfig.methods.delete
+              webService.methods.delete
             )
             .then(response => {
               console.log(response);
+              self.$store.dispatch(
+                'deleteQuestionInQuestionset',
+                { id: menuContext.id }
+              )
             })
             .catch(error => {
               console.log(error);
