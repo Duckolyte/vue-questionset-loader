@@ -1,20 +1,59 @@
 <template>
   <base-question>
-    <template v-slot="type-attributes">
-      <!-- binary question has no type specific additional attributes -->
+    <template v-slot:typeAttributes>
+      <!-- no additional attributes for binary question required-->
     </template>
-    <template v-slot="answers">
-      <component
-        :is="answerType"
-      >
-      </component>
+    <template v-slot:typeAnswers>
+      <v-card class="mb-5">
+        <v-card-title primary-title >
+          <div>
+            <v-btn absolute bottom left fab dark small color="secondary"
+              :to="{name: 'edit-answer', params: {id: question._id || 0}}"
+            >
+              <v-icon dark>fa-plus</v-icon>
+            </v-btn>
+            <h3 class="subheader font-weight-light mb-2">Answer Yes</h3>
+            <div v-if="question.answers && question.answers.length > 0">
+              <v-list two-line>
+                <qun-answer-description
+                  :answer="question.answers[0]"
+                  :isTitle="false"
+                >
+                </qun-answer-description>
+              </v-list>
+            </div>
+          </div>
+        </v-card-title>
+      </v-card>
+      <v-card class="mb-5">
+        <v-card-title primary-title>
+          <div>
+            <v-btn absolute bottom left fab dark small color="secondary"
+              :to="{name: 'edit-answer', params: {id: question._id || 0}}"
+            >
+              <v-icon dark>fa-plus</v-icon>
+            </v-btn>
+            <h3 class="subheader font-weight-light mb-2">Answer No</h3>
+            <div v-if="question.answers && question.answers.length > 1">
+              <v-list two-line>
+                <qun-answer-description
+                  :answer="question.answers[1]"
+                  :isTitle="false"
+                >
+                </qun-answer-description>
+              </v-list>
+            </div>
+          </div>
+        </v-card-title>
+      </v-card>
     </template>
   </base-question>
 </template>
 
 <script>
 
-import BaseQuestion from './BaseQuestion.vue';
+import BaseQuestion from './BaseQuestion.vue'
+import AnswerDescription from '../answer/AnswerDescription.vue'
 
 export default
 {
@@ -22,15 +61,11 @@ export default
 
   components: {
     'base-question': BaseQuestion,
+    'qun-answer-description': AnswerDescription, 
   },
 
-  data() {
-    return {
-      answerType: 'binary-Answer', // TODO make dynamic
-    };
-  },
-
-  methods: {
+  props: {
+    question: Object,
   },
 };
 

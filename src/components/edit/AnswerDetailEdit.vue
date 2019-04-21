@@ -2,7 +2,7 @@
   <div>
     <h1 class="font-weight-light">Edit Answer</h1>
     <component
-    :is="selectedEdit"
+      :is="selectedEdit"
     ></component>
   </div>
 </template>

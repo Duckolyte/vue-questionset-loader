@@ -30,6 +30,7 @@
         <qun-menu
           v-else
           :menuItems="menuItems"
+          :menuContext="{id: answer._id, type: 'answer'}"
         >
         </qun-menu>
       </v-list-tile>
@@ -42,15 +43,54 @@ import QunMenu from '../../util/QunMenu'
 
 export default {
   name: 'AnswerList',
+
   components: {
     'qun-menu': QunMenu,
   },
+
+  props: {
+    answer: Object,
+    isTitle: Boolean,
+  },
+
   data(){
     return {
-      answer: {
-        label: 'default',
-        next: 'default next',
-      }
+      menuItems:[
+        {
+          title: 'Edit',
+          icon: 'edit',
+          command: function(self, menuContext) {
+            const routeTo = {
+              name: `edit-${menuContext.type}`,
+              params: { id: menuContext.id }
+            }
+            self.$router.push(routeTo)
+          },
+        },
+        {
+          title: 'Delete',
+          icon: 'trash',
+          command: function(self, menuContext) {
+            const webService =
+              self.$store.state.application.questionsetWebService;
+            fetch(
+              `${webService.url}${webService.api}`+
+              `${webService.resources[menuContext.type]}/${menuContext.id}`,
+              webService.methods.delete
+            )
+            .then(response => {
+              console.log(response);
+              self.$store.dispatch(
+                'deleteQuestionInQuestionset',
+                { id: menuContext.id }
+              )
+            })
+            .catch(error => {
+              console.log(error);
+            });
+          },
+        }
+      ],
     }
   }
 }

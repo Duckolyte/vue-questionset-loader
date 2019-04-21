@@ -22,10 +22,11 @@
     <v-layout row wrap>
       <v-flex
         xs12
-        v-if="selectedType"
+        v-if="question.type"
       >
         <component
           :is="question.type"
+          :question="question"
         ></component>
       </v-flex>
     </v-layout>
@@ -46,6 +47,8 @@
 //import SliderQuestion from '../components/question/SliderQuestion.vue';
 import BinaryQuestion from './question/BinaryQuestion.vue';
 
+import AnswerList from './answer/AnswerList.vue'
+
 export default {
 
   name: 'QuestionDetailEdit',
@@ -58,6 +61,7 @@ export default {
     'slider-question': SliderQuestion,
     */
     'binary-question': BinaryQuestion,
+    'answer-list': AnswerList,
   },
 
   computed: {
@@ -77,6 +81,7 @@ export default {
       question: {
         label: "",
         type: "",
+        answers: [],
       },
       items: [
         'binary-question'
@@ -173,6 +178,8 @@ export default {
         console.log(error);
       })
     }
+
+    this.$store.state.application.context.inUseQuestion = this.question
   },
 }
 </script>

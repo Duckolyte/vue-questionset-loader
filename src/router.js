@@ -70,7 +70,7 @@ export default new Router({
             },
             {
               name: 'edit-answer',
-              path: 'answer',
+              path: 'answer/:id',
               component: QunAnswerDetailEdit
             },
           ]

@@ -6,7 +6,46 @@
     <div slot="form-fields">
       <v-layout column align-center>
         <v-flex xs-12>
-          <v-radio-group color="secondary">
+          <div style="position: relative; overflow: hidden;">
+            <v-toolbar
+              color="primary"
+              dark
+              scroll-off-screen
+              scroll-target="#scrolling-techniques"
+            >
+              <v-toolbar-title>Answers</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn icon>
+                <v-icon>search</v-icon>
+              </v-btn>
+
+              <v-btn 
+                absolute 
+                bottom 
+                left 
+                fab 
+                dark 
+                small 
+                color="secondary"
+                :to="{name: 'edit-answer', params: {id: 0}}"
+              >
+                <v-icon dark>fa-plus</v-icon>
+              </v-btn>
+            
+            </v-toolbar>
+            
+            <div
+              style="max-height: 600px; min-height: 100px;"
+              class="scroll-y"
+              id="scrolling-techniques"
+            >
+                <answer-list
+                  :answers="question.answers"
+                ></answer-list>
+            </div>
+          </div>
+
+          <!-- <v-radio-group color="secondary">
             <v-radio
             v-for="answer in question.answers"
             :key="answer.code"
@@ -14,7 +53,7 @@
             :value="answer.label"
             @click="submitQuestion(question, answer)"
             ></v-radio>
-          </v-radio-group>
+          </v-radio-group> -->
         </v-flex>
       </v-layout>
     </div>

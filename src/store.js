@@ -16,6 +16,7 @@ export default new Vuex.Store({
       context: {
         allQuestionsets: null,
         inUseQuestionset: null,
+        inUseQuestion: null,
       },
 
       questionsetWebService: {
@@ -23,7 +24,8 @@ export default new Vuex.Store({
         api: '/questionary-loader',
         resources: {
           questionset: '/questionaries',
-          question: '/questions'
+          question: '/questions',
+          answers: '/answers'
         },
         methods: {
           get: {
@@ -155,6 +157,19 @@ export default new Vuex.Store({
         type => type.icon
       )
     },
+
+    allQuestionsFromSetInUseExceptQuestionInUse: state => {
+      return state.application.context.inUseQuestionset.questions.map(question => question.label)
+/*       let appContext = state.application.context
+      console.log(appContext.inUseQuestionset)
+      console.log(appContext.inUseQuestion)
+      if(appContext.inUseQuestionset && appContext.inUseQuestion){
+        return appContext.inUseQuestionset.
+        questions.filter(
+          question => {question._id !== appContext.inUseQuestion._id}
+        )
+      }
+ */    },
 
   },
 
